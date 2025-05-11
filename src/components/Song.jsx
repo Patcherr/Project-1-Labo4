@@ -53,7 +53,7 @@ const Song = () => {
        {!modalOpen && (
         <SongList songs={songs} incrementPlayCount={incrementPlayCount} removeSong={removeSong} />
        )}
-        <VideoModal song={setSelectedSong} isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+        <VideoModal song={selectedSong} isOpen={modalOpen} onClose={() => setModalOpen(false)} />
     </div>
   );
 };
