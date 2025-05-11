@@ -8,6 +8,7 @@ const Song = () => {
   const { songs, addSong, removeSong, incrementPlayCount } = useSong();
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
+  const [selectedSong, setSelectedSong] = useState(null); 
   const [modalOpen, setModalOpen] = useState(false);
 
   const handleSubmit = (e) => {
