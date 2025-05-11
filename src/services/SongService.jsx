@@ -17,22 +17,19 @@ class SongService {
   }
 
   addSong(name, url) {
-    const song = new SongModel(name, url);
+    const song = new SongModel(name, url, 0);
     this.items.push(song);
     localStorage.setItem("songs", JSON.stringify(this.items));
     this.notifyListeners();
   }
 
-  incrementPlays(url) {
-    if(!this.songs){
-      console.error("No songs found in localStorage");
-      return [];
-    }
-    this.songs = this.songs.map(song =>
-    song.url === url ? { ...song, plays: song.plays + 1 } : song
+  playSong(url) {
+    this.items = this.items.map((song) =>
+    song.url === url ? { ...song, plays: (song.plays || 0) + 1 } : song
   );
-  localStorage.setItem("songs", JSON.stringify(this.songs));
-  return this.songs;
+  localStorage.setItem("songs", JSON.stringify(this.items));
+  this.notifyListeners();
+  return this.items.find((s) => s.url === url);
   }
 
   removeSong(url) {

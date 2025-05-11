@@ -1,9 +1,8 @@
-import Song from "./components/Song";
+import Song from "./components/Song/Song";
 
 const App = () => {
   return (
-    <main>
-      <h1>🎶 Mi Playlist de Youtube</h1>
+    <main>     
       <Song />
     </main>
   );

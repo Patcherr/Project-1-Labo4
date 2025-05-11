@@ -1,7 +1,8 @@
 export class SongModel {
-  constructor(name, url) {
+  constructor(name, url, plays = 0) {
     this.name = name;
     this.url = url;
+    this.plays = plays;
   }
 
   getName() {
@@ -18,5 +19,13 @@ export class SongModel {
 
   setUrl(url) {
     this.url = url;
+  }
+
+  getPlays(){
+    return this.plays; 
+  }
+
+  setPlays(){
+    this.plays = plays;
   }
 }
