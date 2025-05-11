@@ -2,11 +2,13 @@ import { useState } from "react";
 import { useSong } from "../hooks/useSong";
 import { isValidYouTubeUrl, isDuplicateUrl } from "../Validations/Validation";
 import SongList from "./SongList"; 
+import VideoModal from "./VideoModal";
 
 const Song = () => {
   const { songs, addSong, removeSong, incrementPlayCount } = useSong();
   const [name, setName] = useState("");
   const [url, setUrl] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,27 +19,40 @@ const Song = () => {
     }
 
     if (!isValidYouTubeUrl(url)) {
-    alert("La URL ingresada no es válida. Debe ser un enlace de YouTube.");
+    alert("The URL entered is invalid. It must be a YouTube link.");
     return;
     }
 
-    if (!name || !url) return;
-
+    if (!name || !url) {
+      alert("Please fill in all fields.");
+      return;
+    }
     addSong(name, url);
     setName("");
     setUrl("");
   };
+  
+  const handlePlay = (song) => {
+  setSelectedSong(song);  // ✅ Guarda la canción seleccionada
+  setModalOpen(true);  // ✅ Abre el modal
+  };  
+
+
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input placeholder="Song name" value={name} onChange={(e) => setName(e.target.value)} />
-        <input placeholder="URL" value={url} onChange={(e) => setUrl(e.target.value)} />
-        <button type="submit">Add Song</button>
-      </form>
+      {!modalOpen && (
+        <form onSubmit={handleSubmit}>
+          <input placeholder="Song name" value={name} onChange={(e) => setName(e.target.value)} />
+          <input placeholder="URL" value={url} onChange={(e) => setUrl(e.target.value)} />
+          <button type="submit">Add Song</button>
+        </form>
+      )}
 
-       {/* 🔥 Mostramos la lista de canciones con el nuevo componente */}
-      <SongList songs={songs} incrementPlayCount={incrementPlayCount} removeSong={removeSong} />
+       {!modalOpen && (
+        <SongList songs={songs} incrementPlayCount={incrementPlayCount} removeSong={removeSong} />
+       )}
+        <VideoModal song={setSelectedSong} isOpen={modalOpen} onClose={() => setModalOpen(false)} />
     </div>
   );
 };

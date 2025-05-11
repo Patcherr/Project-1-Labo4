@@ -3,7 +3,7 @@ import Song from "./components/Song";
 const App = () => {
   return (
     <main>
-      <h1>🎶 Mi Playlist Reactiva</h1>
+      <h1>🎶 Mi Playlist de Youtube</h1>
       <Song />
     </main>
   );
