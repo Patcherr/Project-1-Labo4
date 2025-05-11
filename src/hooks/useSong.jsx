@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { songService } from "../services/SongService";
 
 export const useSong = () => {
-  const [songs, setSongs] = useState(songService.getItems());
+  const [songs, setSongs] = useState(() => songService.getItems() || []);
 
   useEffect(() => {
     const update = (items) => setSongs([...items]);

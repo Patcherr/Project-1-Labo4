@@ -24,7 +24,11 @@ class SongService {
   }
 
   incrementPlays(url) {
-  this.songs = this.songs.map(song =>
+    if(!this.songs){
+      console.error("No songs found in localStorage");
+      return [];
+    }
+    this.songs = this.songs.map(song =>
     song.url === url ? { ...song, plays: song.plays + 1 } : song
   );
   localStorage.setItem("songs", JSON.stringify(this.songs));
